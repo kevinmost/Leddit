@@ -12,9 +12,15 @@ public enum IntPreference implements LedditPreference<Integer> {
     LedditPreferences prefs;
 
     private final String key;
+    private final Integer defaultValue;
 
     private IntPreference(String key) {
+        this(key, 0);
+    }
+
+    private IntPreference(String key, Integer defaultValue) {
         this.key = key;
+        this.defaultValue = defaultValue;
     }
 
     @Override
@@ -24,11 +30,16 @@ public enum IntPreference implements LedditPreference<Integer> {
 
     @Override
     public Integer getValue() {
-        return prefs.getSharedPreferences().getInt(key, 0);
+        return prefs.get(this);
     }
 
     @Override
     public String getKey() {
         return key;
+    }
+
+    @Override
+    public Integer getDefaultValue() {
+        return defaultValue;
     }
 }

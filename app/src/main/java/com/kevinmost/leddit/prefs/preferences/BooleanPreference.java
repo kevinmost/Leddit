@@ -13,16 +13,21 @@ public enum BooleanPreference implements LedditPreference<Boolean> {
     LedditPreferences prefs;
 
     private final String key;
+    private final Boolean defaultValue;
 
     private BooleanPreference(String key) {
+        this(key, false);
+    }
+
+    private BooleanPreference(String key, Boolean defaultValue) {
         this.key = key;
+        this.defaultValue = defaultValue;
     }
 
     @Override
     public Boolean getValue() {
-        return prefs.getSharedPreferences().getBoolean(key, false);
+        return prefs.get(this);
     }
-
 
     @Override
     public void setValue(Boolean value) {
@@ -34,4 +39,8 @@ public enum BooleanPreference implements LedditPreference<Boolean> {
         return key;
     }
 
+    @Override
+    public Boolean getDefaultValue() {
+        return defaultValue;
+    }
 }

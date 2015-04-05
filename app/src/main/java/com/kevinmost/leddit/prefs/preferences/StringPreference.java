@@ -13,14 +13,20 @@ public enum StringPreference implements LedditPreference<String> {
     LedditPreferences prefs;
 
     private final String key;
+    private final String defaultValue;
 
     private StringPreference(String key) {
+        this(key, "");
+    }
+
+    private StringPreference(String key, String defaultValue) {
         this.key = key;
+        this.defaultValue = defaultValue;
     }
 
     @Override
     public String getValue() {
-        return prefs.getSharedPreferences().getString(key, "");
+        return prefs.get(this);
     }
 
     @Override
@@ -31,5 +37,10 @@ public enum StringPreference implements LedditPreference<String> {
     @Override
     public String getKey() {
         return key;
+    }
+
+    @Override
+    public String getDefaultValue() {
+        return defaultValue;
     }
 }

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.Map;
 import java.util.Set;
 
 @Singleton
@@ -54,28 +55,20 @@ public final class LedditPreferences {
         editor.apply();
     }
 
-    @SuppressWarnings("unchecked")
     public <T> T get(LedditPreference<T> pref) {
         final String key = pref.getKey();
         final T defaultValue = pref.getDefaultValue();
-        // TODO: This is possibly even uglier than the above one
-        if (defaultValue instanceof Boolean) {
-            return (T) Boolean.valueOf(sharedPreferences.getBoolean(key, (Boolean) defaultValue));
-        } else if (defaultValue instanceof String) {
-            return (T) sharedPreferences.getString(key, (String) defaultValue);
-        } else if (defaultValue instanceof Integer) {
-            return (T) Integer.valueOf(sharedPreferences.getInt(key, (Integer) defaultValue));
-        } else if (defaultValue instanceof Float) {
-            return (T) Float.valueOf(sharedPreferences.getFloat(key, (Float) defaultValue));
-        } else if (defaultValue instanceof Long) {
-            return (T) Long.valueOf(sharedPreferences.getLong(key, (Long) defaultValue));
-        } else if (defaultValue instanceof Set) {
-            return (T) sharedPreferences.getStringSet(key, (Set) defaultValue);
-        } else {
-            final String errorMsg = "defaultValue was not of valid type. Type was: " +
-                    defaultValue.getClass().getCanonicalName();
-            Log.e(TAG, errorMsg, new UnsupportedOperationException(errorMsg));
+        if (!sharedPreferences.contains(key)) {
+            return defaultValue;
         }
-        return defaultValue;
+        final Map<String, ?> allPrefs = sharedPreferences.getAll();
+        @SuppressWarnings("unchecked")
+        final T value = (T) allPrefs.get(key);
+
+        if (value == null) {
+            Log.w(TAG, "Value of key " + key + " was null, returning default value" + defaultValue);
+            return defaultValue;
+        }
+        return value;
     }
 }

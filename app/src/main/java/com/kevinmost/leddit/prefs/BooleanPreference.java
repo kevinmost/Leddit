@@ -1,7 +1,4 @@
-package com.kevinmost.leddit.prefs.preferences;
-
-import com.kevinmost.leddit.prefs.LedditPreference;
-import com.kevinmost.leddit.prefs.LedditPreferences;
+package com.kevinmost.leddit.prefs;
 
 import javax.inject.Inject;
 

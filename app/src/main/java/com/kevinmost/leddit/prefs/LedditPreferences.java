@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Singleton
-public final class LedditPreferences {
+final class LedditPreferences {
 
     private static final String TAG = LedditPreferences.class.getSimpleName();
 

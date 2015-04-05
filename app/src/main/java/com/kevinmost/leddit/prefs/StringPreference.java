@@ -1,4 +1,4 @@
-package com.kevinmost.leddit.prefs.preferences;
+package com.kevinmost.leddit.prefs;
 
 import com.kevinmost.leddit.prefs.LedditPreference;
 import com.kevinmost.leddit.prefs.LedditPreferences;

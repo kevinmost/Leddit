@@ -1,16 +1,9 @@
 package com.kevinmost.leddit.module;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import com.kevinmost.leddit.App;
-import com.kevinmost.leddit.prefs.LedditPreference;
-import com.kevinmost.leddit.prefs.LedditPreferences;
-import com.kevinmost.leddit.prefs.Preference;
-import com.kevinmost.leddit.prefs.preferences.BooleanPreference;
-import com.kevinmost.leddit.prefs.preferences.StringPreference;
 import dagger.Module;
 import dagger.Provides;
 import net.dean.jraw.RedditClient;

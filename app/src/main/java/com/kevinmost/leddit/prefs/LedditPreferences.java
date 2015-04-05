@@ -18,21 +18,17 @@ public final class LedditPreferences {
     @Inject
     Context context;
 
-    private SharedPreferences sharedPreferences;
 
     // Disallow non-injected instantiation
     protected LedditPreferences() {}
 
-    public SharedPreferences getSharedPreferences() {
-        if (sharedPreferences == null) {
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        }
-        return sharedPreferences;
+    private SharedPreferences getSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public <T> void put(LedditPreference<T> pref, T value) {
         final String key = pref.getKey();
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        final SharedPreferences.Editor editor = getSharedPreferences().edit();
         // TODO: This is gross, any way we can improve this?
         if (value instanceof Boolean) {
             editor.putBoolean(key, ((Boolean) value));
@@ -58,10 +54,10 @@ public final class LedditPreferences {
     public <T> T get(LedditPreference<T> pref) {
         final String key = pref.getKey();
         final T defaultValue = pref.getDefaultValue();
-        if (!sharedPreferences.contains(key)) {
+        if (!getSharedPreferences().contains(key)) {
             return defaultValue;
         }
-        final Map<String, ?> allPrefs = sharedPreferences.getAll();
+        final Map<String, ?> allPrefs = getSharedPreferences().getAll();
         @SuppressWarnings("unchecked")
         final T value = (T) allPrefs.get(key);
 

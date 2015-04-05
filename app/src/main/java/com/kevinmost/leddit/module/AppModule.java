@@ -36,7 +36,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    RedditClient provideRedditClient(LedditPreferences preferences) {
+    RedditClient provideRedditClient() {
         int versionNumber = 0;
         try {
             versionNumber = context.getPackageManager()

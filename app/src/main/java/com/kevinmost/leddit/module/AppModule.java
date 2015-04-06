@@ -1,7 +1,9 @@
 package com.kevinmost.leddit.module;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import com.kevinmost.leddit.App;
 import dagger.Module;
@@ -25,6 +27,12 @@ public class AppModule {
     @Singleton
     App provideApp() {
         return App.get();
+    }
+
+    @Provides
+    @Singleton
+    SharedPreferences provideSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     @Provides
